@@ -170,3 +170,5 @@ Examples:
     Add the following system variable to you *.bash_profile* can resolve the problem:
     > export LC_ALL="C"  
     > source .bash_profile 
+
+2. The executable file *PotreeConverter* will be generated in `build/PotreeeConverter/`. It should be copied into `master/PotreeConverter/` for use, because when you convert a las/laz with `-p pageName` parameter, the converter needs to use the files in `master/PotreeConverter/resources` to generate the html file.
