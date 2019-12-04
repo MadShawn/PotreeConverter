@@ -52,11 +52,17 @@ Same as the linux instructions above, except:
 
 1. Give cmake absolute paths to the LASzip tools you just built. (Otherwise make might not be able to find them)
 2. LASZip library will be called `liblaszip.dylib`, not `liblaszip.so `
+3. C++ compiler should be set to gcc implicitly instead of clang
 
 ```
 ...
 
-cmake -DCMAKE_BUILD_TYPE=Release -DLASZIP_INCLUDE_DIRS=[ABSOLUTE_PATH_TO_LASTOOLS]/master/LASzip/dll -DLASZIP_LIBRARY=[ABSOLUTE_PATH_TO_LASTOOLS]/master/LASzip/build/src/liblaszip.dylib ..
+cmake -DCMAKE_BUILD_TYPE=Release 
+    -DLASZIP_INCLUDE_DIRS=[ABSOLUTE_PATH_TO_LASTOOLS]/master/LASzip/dll 
+    -DLASZIP_LIBRARY=[ABSOLUTE_PATH_TO_LASTOOLS]/master/LASzip/build/src/liblaszip.dylib 
+    -DCMAKE_C_COMPILER=/usr/local/Cellar/gcc/[version 6.0+]/bin/gcc-6 
+    -DCMAKE_CXX_COMPILER=/usr/local/Cellar/gcc/[version 6.0+]/bin/g++-6 
+    ..
 make
 
 ```
@@ -156,3 +162,11 @@ Examples:
 
 	# using a swiss projection. Use http://spatialreference.org/ to find projections in proj4 format
 	./PotreeConverter.exe C:/data -o C:/potree_converted -p pageName --projection "+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.4,15.1,405.3,0,0,0,0 +units=m +no_defs" --overwrite
+
+## FAQ
+1. On Macosx, the first time you execute ```./PotreeConverter -h```, you might encounter an error message below:
+    > terminate called after throwing an instance of ‘std::runtime_error’ what(): locale::facet::_S_create_c_locale name not valid
+    
+    Add the following system variable to you *.bash_profile* can resolve the problem:
+    > export LC_ALL="C"  
+    > source .bash_profile 
