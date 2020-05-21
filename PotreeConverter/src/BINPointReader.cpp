@@ -3,12 +3,12 @@
 #include <iostream>
 #include <vector>
 
-#include <filesystem>
+#include <experimental/filesystem>
 
 #include "BINPointReader.hpp"
 #include "stuff.h"
 
-namespace fs = std::filesystem;
+namespace fs = std::experimental::filesystem;
 
 using std::ifstream;
 using std::cout;
@@ -177,13 +177,9 @@ bool BINPointReader::readNextPoint(){
 				point.normal.y = fBuffer[1];
 				point.normal.z = fBuffer[2];
 			} else {
-				vector<uint8_t> target(attribute.byteSize, 0);
-
-				memcpy(target.data(), (buffer + offset), attribute.byteSize);
-				
-				point.extraBytes.insert(point.extraBytes.end(), target.begin(), target.end());
+				cout << "ERROR: attribute reader not implemented: " << attribute.name << endl;
+				exit(1);
 			}
-			
 
 			offset += attribute.byteSize;
 		}

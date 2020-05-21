@@ -7,7 +7,7 @@
 #include <fstream>
 #include <iomanip>
 
-#include <filesystem>
+#include <experimental/filesystem>
 
 #include "AABB.h"
 #include "SparseGrid.h"
@@ -31,7 +31,7 @@ using std::chrono::high_resolution_clock;
 using std::chrono::milliseconds;
 using std::chrono::duration_cast;
 
-namespace fs = std::filesystem;
+namespace fs = std::experimental::filesystem;
 
 namespace Potree{
 
@@ -295,7 +295,8 @@ void PWNode::flush(){
 			if(fs::exists(temppath)){
 				PointReader *reader = createReader(temppath);
 				while(reader->readNextPoint()){
-					writer->write(reader->getPoint());
+					Point point = reader->getPoint();
+					writer->write(point);
 				}
 				reader->close();
 				delete reader;

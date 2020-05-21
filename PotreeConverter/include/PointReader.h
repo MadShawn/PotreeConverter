@@ -3,12 +3,12 @@
 #ifndef POINTREADER_H
 #define POINTREADER_H
 
-#include <filesystem>
+#include <experimental/filesystem>
 
 #include "Point.h"
 #include "AABB.h"
 
-namespace fs = std::filesystem;
+namespace fs = std::experimental::filesystem;
 
 namespace Potree{
 
